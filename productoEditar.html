@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  </head>
+  <body>
+    <h1>COLOMBIAN T-Shirts Shop - BIENVENIDOS A EDITAR PRODUCTOS</h1>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Camisetas</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">LOGIN</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Categorías
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled">Disabled</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class = "row my-5">
+
+        <div class = "col-3">
+            <div class = "container">
+                <ul>
+                    <li><a href="panel.html"> Productos </a></li>
+                    <li>Agregar Productos</li>
+                    <li>Categorias</li>
+                    <li>Agregar Categorias</li>
+                    <li>Usuarios</li>
+                    <li>Agregar Usuarios</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class = "col-9">
+            <div class = "container">
+               <div class = "row my-5">
+                    <div>
+
+                        <form name="frm">
+                            <div class="form-group row">
+                                <!--<label for="text" class="col-4 col-form-label">Id Producto</label> 
+                                <div class="col-8">
+                                  <input id="text" name="nombre" type="text" class="form-control">
+                                </div>
+                              </div>-->
+
+                            <div class="form-group row">
+                              <label for="text" class="col-4 col-form-label">Nombre Producto</label> 
+                              <div class="col-8">
+                                <input id="text" name="nombre" type="text" class="form-control">
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <label for="select" class="col-4 col-form-label">Categoría</label> 
+                              <div class="col-8">
+                                <select id="select" name="categoria" class="custom-select">
+                                  <!--<option value="unicolor">1Unicolor</option>
+                                  <option value="deportiva">2Deportiva</option>
+                                  <option value="polo">3Polo</option>-->
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <label for="text1" class="col-4 col-form-label">Precio</label> 
+                              <div class="col-8">
+                                <input id="text1" name="precio" type="text" class="form-control">
+                              </div>
+                            </div>
+
+                            <div class="form-group row">
+                              <label for="textarea" class="col-4 col-form-label">Descripción</label> 
+                              <div class="col-8">
+                                <textarea id="textarea" name="descripcion" cols="40" rows="5" class="form-control"></textarea>
+                              </div>
+                            </div> 
+
+                            <div class="form-group row">
+                              <div class="offset-4 col-8">
+                                <!--<button name="button" type="button" class="btn btn-primary" onclick="alert(hola)" >Guardar</button>-->
+                                <!--<input name="button" type="submit" class="btn btn-primary" onclick="guardar()" value ="Guardar">-->
+                                <input name="button" type="button" class="btn btn-primary" onClick ="guardar()" value ="Guardar">
+                              </div>
+                            </div>
+                          </form>
+
+                    </div>
+               </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function guardar(){
+            //alert("guardando....")
+            console.log('guardando....wait')
+                let nombre = document.frm.nombre.value
+                let categoria = document.frm.categoria.value
+                let precio = document.frm.precio.value
+                let descripcion = document.frm.descripcion.value
+
+                let params = new URLSearchParams(location.search);
+                const id = params.get('id')
+
+                let producto = {
+                    'id'           :id,
+                    'nombre'       : nombre,
+                    'categoriaId'  : categoria,
+                    'precio'       : precio,
+                    'descripcion'  : descripcion
+                }
+                console.log(producto)
+                options = {
+                    method : "PUT",
+                    body : JSON.stringify(producto),
+                    headers : {
+                     "Content-Type": "application/json"
+                    }              
+                }
+
+                let url = "http://localhost:9011/productos"
+                fetch(url, options)
+                //.then(response => console.log(response))
+                .then(response => response.json())
+                .then(data => { console.log(data) 
+                    if(data.msj == "ok") {
+                        alert(" !!! Producto Actualizado !!! ")
+                    }else{
+                        alert(" ***caution*** Producto NO Actualizado ***caution*** ")
+                    } 
+                
+                })     
+                .catch(err => console.log(err))
+                //.catch(error => console.log("error" + error))
+            }
+
+            let params = new URLSearchParams(location.search);
+            console.log(params)
+            const id = params.get('id')
+
+            fetch("http://localhost:9011/productos/"+ id)
+            .then(response => response.json())
+            .then(data => { console.log(data)
+                document.frm.nombre.value = data.nombre
+                document.frm.precio.value = data.precio
+                document.frm.descripcion.value = data.descripcion
+                document.getElementById("select").SelectedIndex = data.categoria
+            })
+
+
+
+        console.log("Solicitando Categorias")
+        fetch("http://localhost:9011/categorias")
+            .then(response => response.json())
+            .then(data => {console.log(data)
+                let codigo = ""
+                data.forEach(element => {
+                    codigo += '<option value='+ element.id+'>'
+                    codigo += element.nombre
+                    codigo += '</option>'
+                    }
+                )
+                document.getElementById("select").innerHTML = codigo
+            })
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </body>
+</html>
